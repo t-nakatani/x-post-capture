@@ -7,7 +7,7 @@
 
 interface Env {
   GITHUB_TOKEN: string;
-  API_KEY: string;
+  CUSTOM_CAPTURE_SECRET: string;
   GITHUB_OWNER: string;
   GITHUB_REPO: string;
   ISSUE_LABEL: string;
@@ -481,7 +481,7 @@ export default {
         headers: {
           "Access-Control-Allow-Origin": "*",
           "Access-Control-Allow-Methods": "POST",
-          "Access-Control-Allow-Headers": "Content-Type, X-API-Key",
+          "Access-Control-Allow-Headers": "Content-Type, X-Custom-Capture-Secret",
         },
       });
     }
@@ -494,8 +494,8 @@ export default {
     }
 
     // Auth check
-    const apiKey = request.headers.get("X-API-Key");
-    if (!apiKey || apiKey !== env.API_KEY) {
+    const customCaptureSecret = request.headers.get("X-Custom-Capture-Secret");
+    if (!customCaptureSecret || customCaptureSecret !== env.CUSTOM_CAPTURE_SECRET) {
       return Response.json({ error: "Unauthorized" }, { status: 401 });
     }
 

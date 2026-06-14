@@ -26,7 +26,7 @@ bunx wrangler login
 
 # シークレットを設定
 bunx wrangler secret put GITHUB_TOKEN   # Fine-grained PAT (Issues: write)
-bunx wrangler secret put API_KEY         # 任意の文字列（iOS Shortcut の認証用）
+bunx wrangler secret put CUSTOM_CAPTURE_SECRET         # 任意の文字列（iOS Shortcut の認証用）
 
 # デプロイ
 bun run deploy
@@ -68,7 +68,7 @@ iPhone の「ショートカット」アプリで新規作成:
    - Method: `POST`
    - Headers:
      - `Content-Type`: `application/json`
-     - `X-API-Key`: `<API_KEY と同じ値>`
+     - `X-Custom-Capture-Secret`: `<CUSTOM_CAPTURE_SECRET と同じ値>`
    - Request Body: **JSON**
      - Key: `url`, Value: `Shortcut Input`
 
@@ -157,7 +157,7 @@ bun run dev
 # テスト（curl）
 curl -X POST http://localhost:8787 \
   -H "Content-Type: application/json" \
-  -H "X-API-Key: test-key" \
+  -H "X-Custom-Capture-Secret: test-key" \
   -d '{"url": "https://x.com/elonmusk/status/1585841080431321088"}'
 
 # ログ
@@ -168,7 +168,7 @@ bun run tail
 
 | 症状 | 原因 | 対処 |
 |------|------|------|
-| 401 Unauthorized | API_KEY 不一致 | Shortcut の X-API-Key と `wrangler secret put API_KEY` の値を確認 |
+| 401 Unauthorized | CUSTOM_CAPTURE_SECRET 不一致 | Shortcut の X-Custom-Capture-Secret と `wrangler secret put CUSTOM_CAPTURE_SECRET` の値を確認 |
 | 502 GitHub API error | PAT 期限切れ or 権限不足 | PAT を再発行して `wrangler secret put GITHUB_TOKEN` |
 | "duplicate" 返却 | 同じツイートを再キャプチャ | 正常動作。重複防止が機能している |
 | FxEmbed 失敗 | FxEmbed サービスダウン | Syndication API にフォールバック → それも失敗なら URL のみで Issue 作成 |

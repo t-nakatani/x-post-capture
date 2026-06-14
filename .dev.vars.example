@@ -1,2 +1,2 @@
 GITHUB_TOKEN=replace-with-fine-grained-pat
-API_KEY=replace-with-shortcut-api-key
+CUSTOM_CAPTURE_SECRET=replace-with-shortcut-api-key
