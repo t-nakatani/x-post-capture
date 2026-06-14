@@ -2,7 +2,7 @@
 
 **調査日**: 2026-03-19
 **目的**: X のアーティクル（長文記事）や画像を含むポストの解析精度を改善する
-**対象**: `platforms/claude_platform/x-post-capture-worker/`
+**対象**: `x-post-capture` Cloudflare Worker
 **方針**: 案 B（FxEmbed API の Article 対応検証）を本命とする
 
 ---

@@ -1,6 +1,6 @@
 # X Post Capture Worker
 
-X (Twitter) の投稿を iOS ショートカットの 2 タップでこのリポジトリの GitHub Issue に保存する。
+X (Twitter) の投稿を iOS ショートカットから任意の GitHub Issues inbox に保存する Cloudflare Worker。
 
 ## アーキテクチャ
 
@@ -18,7 +18,7 @@ X (Twitter) の投稿を iOS ショートカットの 2 タップでこのリポ
 ### 1. Cloudflare Workers
 
 ```bash
-cd platforms/claude_platform/x-post-capture-worker
+cd x-post-capture
 bun install
 
 # Cloudflare にログイン
@@ -32,12 +32,12 @@ bunx wrangler secret put API_KEY         # 任意の文字列（iOS Shortcut の
 bun run deploy
 ```
 
-デプロイ後、`https://x-post-capture.<your-subdomain>.workers.dev` が発行される。
+デプロイ後、`https://<your-worker>.<your-subdomain>.workers.dev` が発行される。
 
 ### 2. GitHub PAT（Fine-grained）
 
 1. https://github.com/settings/personal-access-tokens/new
-2. Repository access: **Only select repositories** → `bot_platform_2026`
+2. Repository access: **Only select repositories** → 保存先にする GitHub repository
 3. Permissions:
    - **Issues**: Read and write
    - **Metadata**: Read（自動付与）
@@ -62,7 +62,7 @@ iPhone の「ショートカット」アプリで新規作成:
    - Input を "URLs" に限定
 
 2. **URL**
-   - `https://x-post-capture.<your-subdomain>.workers.dev`
+   - `https://<your-worker>.<your-subdomain>.workers.dev`
 
 3. **Get Contents of URL**
    - Method: `POST`
@@ -203,7 +203,7 @@ FxEmbed API (primary) → Syndication API (fallback) → URL のみ保存 (last 
 ### X 公式 API v2（未使用・バックアッププラン）
 
 2026年2月に従量課金（Pay-Per-Use）に移行。ツイート読み取り $0.005/件、最低購入 $5。
-FxEmbed が恒久的に壊れた場合の切り替え先として検討。詳細は `.laboratory/x-post-capture/article_image_improvement_survey.md` を参照。
+FxEmbed が恒久的に壊れた場合の切り替え先として検討。詳細は `docs/article_image_improvement_survey.md` を参照。
 
 ### 安定性の比較
 
