@@ -1,0 +1,12 @@
+name = "x-post-capture"
+main = "src/index.ts"
+compatibility_date = "2026-03-01"
+
+# Secrets (set via `wrangler secret put`):
+#   GITHUB_TOKEN  - Fine-grained PAT with Issues: write scope
+#   API_KEY       - Simple auth key for iOS Shortcut
+
+[vars]
+GITHUB_OWNER = "t-nakatani"
+GITHUB_REPO = "bot_platform_2026"
+ISSUE_LABEL = "x-capture"
